@@ -1,0 +1,249 @@
+/* ================================================
+   main.css — NeonThread
+   Estilos globales del proyecto con temática cyberpunk.
+   Se divide en secciones según los componentes del proyecto.
+   Cada página agrega su sección correspondiente conforme se desarrolla.
+   ================================================ */
+
+
+/* ================================================
+   VARIABLES GLOBALES
+   Se definen aquí para reutilizarlas en todo el CSS.
+   var(--nombre) para usarlas en cualquier propiedad.
+   ================================================ */
+:root {
+    --gb-bg:         #0a0a0f;              /* Fondo principal de la página */
+    --gb-surface:    #12121a;              /* Fondo de cards y componentes */
+    --gb-surface-2:  #1a1a26;             /* Fondo de inputs y elementos secundarios */
+    --gb-border:     #2a2a3a;             /* Color de bordes */
+    --gb-cyan:       #00f5ff;             /* Color principal (acento cyan) */
+    --gb-cyan-dim:   rgba(0,245,255,0.15);/* Versión semitransparente del cyan */
+    --gb-pink:       #ff0090;             /* Color secundario (acento rosa) */
+    --gb-pink-dim:   rgba(255,0,144,0.15);/* Versión semitransparente del rosa */
+    --gb-text:       #c8d0e0;             /* Color del texto general */
+    --gb-text-muted: #4a5060;             /* Color del texto secundario o desactivado */
+    --gb-font:       'Courier New', Courier, monospace; /* Tipografía monospace para estética tech */
+}
+
+
+/* ================================================
+   BASE
+   ================================================ */
+body {
+    background-color: var(--gb-bg);
+    color: var(--gb-text);
+    font-family: var(--gb-font);
+}
+
+
+/* ================================================
+   NAVBAR
+   ================================================ */
+
+/* Fondo semitransparente con efecto blur para el navbar fijo */
+.navbar-glitch {
+    background-color: rgba(10, 10, 15, 0.95);
+    border-bottom: 1px solid var(--gb-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Compatibilidad con Safari */
+}
+
+/* Logo del sitio en el navbar */
+.glitch-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gb-cyan) !important;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.glitch-brand:hover {
+    color: var(--gb-pink) !important;
+    transition: color 0.2s ease;
+}
+
+/* Links del navbar */
+.nav-glitch {
+    color: var(--gb-text) !important;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+}
+
+/* Estado hover y activo del link (activo lo agrega main.js dinámicamente) */
+.nav-glitch:hover,
+.nav-glitch.active {
+    color: var(--gb-cyan) !important;
+}
+
+/* Menú desplegable del navbar */
+.dropdown-glitch {
+    background-color: var(--gb-surface);
+    border: 1px solid var(--gb-border);
+    border-radius: 4px;
+    min-width: 200px;
+}
+
+.dropdown-glitch .dropdown-item {
+    color: var(--gb-text);
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.15s ease;
+}
+
+.dropdown-glitch .dropdown-item:hover {
+    background-color: var(--gb-cyan-dim);
+    color: var(--gb-cyan);
+}
+
+/* Botón hamburguesa para móvil */
+.navbar-toggler {
+    background-color: transparent;
+    border: 1px solid var(--gb-border);
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 2px var(--gb-cyan-dim);
+}
+
+
+/* ================================================
+   BOTONES
+   Variantes de botones reutilizables en todo el proyecto.
+   ================================================ */
+
+/* Botón principal con borde cyan */
+.btn-neon {
+    background-color: transparent;
+    border: 1px solid var(--gb-cyan);
+    color: var(--gb-cyan);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    padding: 0.4rem 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-neon:hover {
+    background-color: var(--gb-cyan-dim);
+    color: var(--gb-cyan);
+    border-color: var(--gb-cyan);
+}
+
+/* Botón pequeño usado junto a inputs (ej: buscador) */
+.btn-neon-sm {
+    background-color: var(--gb-surface-2);
+    border: 1px solid var(--gb-border);
+    color: var(--gb-cyan);
+    border-radius: 0 2px 2px 0;
+    padding: 0.25rem 0.6rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-neon-sm:hover {
+    background-color: var(--gb-cyan-dim);
+}
+
+/* Botón con variante rosa */
+.btn-neon-pink {
+    background-color: transparent;
+    border: 1px solid var(--gb-pink);
+    color: var(--gb-pink);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    padding: 0.4rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-neon-pink:hover {
+    background-color: var(--gb-pink-dim);
+    color: var(--gb-pink);
+}
+
+
+/* ================================================
+   UTILIDADES
+   Clases pequeñas reutilizables en cualquier parte del HTML.
+   ================================================ */
+.text-neon-cyan  { color: var(--gb-cyan)  !important; }
+.text-neon-pink  { color: var(--gb-pink)  !important; }
+.text-neon-warn  { color: #ffcc00 !important; }
+.text-muted-gb   { color: var(--gb-text-muted) !important; }
+
+.border-neon     { border-color: var(--gb-cyan) !important; }
+.border-neon-dim { border-color: var(--gb-border) !important; }
+
+.ls-2 { letter-spacing: 2px; }
+
+/* Card genérica reutilizable con efecto hover */
+.card-glitch {
+    background-color: var(--gb-surface);
+    border: 1px solid var(--gb-border);
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.card-glitch:hover {
+    border-color: var(--gb-cyan);
+}
+
+/* Override global de inputs de Bootstrap para que coincidan con el tema */
+.form-control-glitch,
+.form-control {
+    background-color: var(--gb-surface-2) !important;
+    border: 1px solid var(--gb-border) !important;
+    color: var(--gb-text) !important;
+    border-radius: 2px;
+}
+
+.form-control-glitch:focus,
+.form-control:focus {
+    box-shadow: 0 0 0 2px var(--gb-cyan-dim) !important;
+    border-color: var(--gb-cyan) !important;
+}
+
+/* Badges de etiqueta */
+.badge-cyan {
+    background-color: var(--gb-cyan-dim);
+    color: var(--gb-cyan);
+    border: 1px solid var(--gb-cyan);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+}
+
+.badge-pink {
+    background-color: var(--gb-pink-dim);
+    color: var(--gb-pink);
+    border: 1px solid var(--gb-pink);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+}
+
+
+/* ================================================
+   FOOTER
+   ================================================ */
+.footer-glitch {
+    background-color: var(--gb-surface);
+    border-top: 1px solid var(--gb-border);
+}
+
+/* Texto descriptivo del footer */
+.footer-tagline {
+    font-size: 0.8rem;
+    color: var(--gb-text-muted);
+}
+
+/* Texto de copyright */
+.footer-copy {
+    font-size: 0.75rem;
+    color: var(--gb-text-muted);
+}
