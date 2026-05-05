@@ -141,7 +141,7 @@ $isLoggedIn = isset($_SESSION['usuario_id']);
                         </div>
                         <div class="flex-grow-1 min-w-0">
                             <h2 class="thread-row-title mb-1"><?= htmlspecialchars($hilo['titulo']) ?></h2>
-                            <p class="thread-row-preview mb-1"><?= htmlspecialchars($hilo['contenido']) ?></p>
+                            <p class="thread-row-preview mb-1"><?= htmlspecialchars(mb_strimwidth($hilo['contenido'], 0, 160, '…')) ?></p>
                             <div class="thread-row-meta">
                                 <i class="bi bi-person-fill me-1"></i><?= htmlspecialchars($hilo['autor']) ?>
                                 <span class="mx-2 text-muted-gb">·</span>

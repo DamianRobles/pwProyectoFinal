@@ -1068,9 +1068,20 @@ main {
   font-size: 0.75rem;
   color: var(--gb-text-muted);
   line-height: 1.5;
+
+  /* Clamp a 2 líneas con puntos suspensivos nativos */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  /* Evita que palabras largas sin espacios rompan el layout */
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  /* Asegura que no crezca más allá de su contenedor flex */
+  max-width: 100%;
+  min-width: 0;
 }
 
 .thread-row-meta {
