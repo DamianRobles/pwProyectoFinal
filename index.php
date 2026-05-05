@@ -1,11 +1,13 @@
 <?php
+
 /**
  * index.php — Landing page de NeonThread
  * CORRECCIÓN: tiempoRelativo() ya viene de db.php, se eliminó la copia local.
  */
 require_once 'includes/db.php';
 
-$activeSection = ''; $basePath = './';
+$activeSection = '';
+$basePath = './';
 include 'includes/header.php';
 
 $isLoggedIn = isset($_SESSION['usuario_id']);
@@ -18,7 +20,9 @@ $secciones = $pdo->query("
     GROUP BY s.id ORDER BY s.id
 ")->fetchAll();
 
-foreach ($secciones as $i => &$sec) { $sec['color'] = $colores[$i % 2]; }
+foreach ($secciones as $i => &$sec) {
+    $sec['color'] = $colores[$i % 2];
+}
 unset($sec);
 
 $hilosRecientes = $pdo->query("
@@ -79,7 +83,7 @@ $hilosRecientes = $pdo->query("
             <?php foreach ($secciones as $sec): ?>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <a href="<?= $basePath ?>section.php?id=<?= $sec['id'] ?>"
-                       class="card-glitch section-card text-decoration-none d-flex flex-column h-100 p-4">
+                        class="card-glitch section-card text-decoration-none d-flex flex-column h-100 p-4">
                         <div class="section-icon mb-3 <?= $sec['color'] === 'cyan' ? 'section-icon-cyan' : 'section-icon-pink' ?>">
                             <i class="bi <?= htmlspecialchars($sec['icono']) ?>"></i>
                         </div>
@@ -127,7 +131,7 @@ $hilosRecientes = $pdo->query("
                 <?php foreach ($hilosRecientes as $hilo): ?>
                     <div class="col-12 col-md-6">
                         <a href="<?= $basePath ?>thread.php?id=<?= $hilo['id'] ?>"
-                           class="thread-card card-glitch text-decoration-none d-flex align-items-center gap-3 p-3 h-100">
+                            class="thread-card card-glitch text-decoration-none d-flex align-items-center gap-3 p-3 h-100">
                             <div class="thread-icon flex-shrink-0">
                                 <i class="bi <?= htmlspecialchars($hilo['seccion_icono']) ?> text-neon-cyan"></i>
                             </div>

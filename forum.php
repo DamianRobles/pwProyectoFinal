@@ -1,10 +1,12 @@
 <?php
+
 /**
  * forum.php — Vista general del foro
  */
 require_once 'includes/db.php';
 
-$activeSection = 'forum'; $basePath = './';
+$activeSection = 'forum';
+$basePath = './';
 include 'includes/header.php';
 $isLoggedIn = isset($_SESSION['usuario_id']);
 
@@ -68,105 +70,106 @@ $totalUsuarios = (int)$pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn(
 </section>
 
 <main class="py-4">
-<div class="container">
-<div class="row g-4">
+    <div class="container">
+        <div class="row g-4">
 
-    <!-- Lista de secciones -->
-    <div class="col-12 col-lg-8">
-        <div class="d-flex flex-column gap-3">
-            <?php foreach ($secciones as $i => $sec): ?>
-                <a href="<?= $basePath ?>section.php?id=<?= $sec['id'] ?>"
-                   class="forum-section-row card-glitch text-decoration-none p-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="forum-sec-icon flex-shrink-0
+            <!-- Lista de secciones -->
+            <div class="col-12 col-lg-8">
+                <div class="d-flex flex-column gap-3">
+                    <?php foreach ($secciones as $i => $sec): ?>
+                        <a href="<?= $basePath ?>section.php?id=<?= $sec['id'] ?>"
+                            class="forum-section-row card-glitch text-decoration-none p-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="forum-sec-icon flex-shrink-0
                             <?= $sec['color'] === 'cyan' ? 'section-icon-cyan' : 'section-icon-pink' ?>">
-                            <i class="bi <?= htmlspecialchars($sec['icono']) ?>"></i>
-                        </div>
-                        <div class="flex-grow-1 min-w-0">
-                            <span class="forum-sec-name <?= $sec['color'] === 'cyan' ? 'text-neon-cyan' : 'text-neon-pink' ?>
-                                         text-decoration-none">
-                                <?= htmlspecialchars($sec['nombre']) ?>
-                            </span>
-                            <p class="forum-sec-desc mb-0 mt-1"><?= htmlspecialchars($sec['descripcion']) ?></p>
-                        </div>
-                        <div class="forum-sec-stats text-end flex-shrink-0 d-none d-sm-block">
-                            <div class="stat-pill"><i class="bi bi-chat-square-dots me-1"></i><?= $sec['total_hilos'] ?> hilos</div>
-                            <div class="stat-pill mt-1"><i class="bi bi-reply-all me-1"></i><?= $sec['total_replies'] ?> resp.</div>
-                        </div>
-                    </div>
-                    <?php if ($sec['ultimo_hilo']): ?>
-                        <div class="forum-last-thread mt-2 pt-2" style="border-top:1px solid var(--gb-border);">
-                            <span class="text-muted-gb" style="font-size:0.7rem;">Último:</span>
-                            <span class="forum-last-title text-decoration-none ms-1">
-                                <?= htmlspecialchars(mb_strimwidth($sec['ultimo_hilo']['titulo'], 0, 60, '…')) ?>
-                            </span>
-                            <span class="text-muted-gb ms-2" style="font-size:0.7rem;">
-                                por <?= htmlspecialchars($sec['ultimo_hilo']['username']) ?>
-                            </span>
-                        </div>
-                    <?php endif; ?>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </div>
-
-    <!-- Sidebar -->
-    <div class="col-12 col-lg-4">
-        <div class="sidebar-card mb-3">
-            <div class="sidebar-card-header">
-                <i class="bi bi-fire me-2 text-neon-pink"></i>Hilos Destacados
-            </div>
-            <div class="sidebar-card-body">
-                <?php if (empty($hilosDestacados)): ?>
-                    <p class="text-muted-gb" style="font-size:0.8rem;">Aún no hay likes.</p>
-                <?php else: ?>
-                    <?php foreach ($hilosDestacados as $i => $hilo): ?>
-                        <?php if ($i > 0): ?><hr style="border-color:var(--gb-border);margin:.75rem 0;"><?php endif; ?>
-                        <div class="sidebar-thread">
-                            <div class="d-flex align-items-start gap-2">
-                                <div class="sidebar-thread-icon flex-shrink-0">
-                                    <i class="bi <?= htmlspecialchars($hilo['seccion_icono']) ?> text-neon-cyan"></i>
+                                    <i class="bi <?= htmlspecialchars($sec['icono']) ?>"></i>
                                 </div>
-                                <div class="min-w-0">
-                                    <a href="<?= $basePath ?>thread.php?id=<?= $hilo['id'] ?>"
-                                       class="sidebar-thread-title text-decoration-none d-block">
-                                        <?= htmlspecialchars($hilo['titulo']) ?>
-                                    </a>
-                                    <div class="sidebar-thread-meta">
-                                        <span class="text-muted-gb"><?= htmlspecialchars($hilo['autor']) ?></span>
-                                        <span class="text-neon-cyan ms-2">
-                                            <i class="bi bi-chat-dots me-1"></i><?= $hilo['respuestas'] ?>
-                                        </span>
-                                        <span class="text-neon-pink ms-2">
-                                            <i class="bi bi-heart-fill me-1"></i><?= $hilo['likes'] ?>
-                                        </span>
-                                    </div>
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="forum-sec-name <?= $sec['color'] === 'cyan' ? 'text-neon-cyan' : 'text-neon-pink' ?>
+                                         text-decoration-none">
+                                        <?= htmlspecialchars($sec['nombre']) ?>
+                                    </span>
+                                    <p class="forum-sec-desc mb-0 mt-1"><?= htmlspecialchars($sec['descripcion']) ?></p>
+                                </div>
+                                <div class="forum-sec-stats text-end flex-shrink-0 d-none d-sm-block">
+                                    <div class="stat-pill"><i class="bi bi-chat-square-dots me-1"></i><?= $sec['total_hilos'] ?> hilos</div>
+                                    <div class="stat-pill mt-1"><i class="bi bi-reply-all me-1"></i><?= $sec['total_replies'] ?> resp.</div>
                                 </div>
                             </div>
-                        </div>
+                            <?php if ($sec['ultimo_hilo']): ?>
+                                <div class="forum-last-thread mt-2 pt-2" style="border-top:1px solid var(--gb-border);">
+                                    <span class="text-muted-gb" style="font-size:0.7rem;">Último:</span>
+                                    <span class="forum-last-title text-decoration-none ms-1">
+                                        <?= htmlspecialchars(mb_strimwidth($sec['ultimo_hilo']['titulo'], 0, 60, '…')) ?>
+                                    </span>
+                                    <span class="text-muted-gb ms-2" style="font-size:0.7rem;">
+                                        por <?= htmlspecialchars($sec['ultimo_hilo']['username']) ?>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                        </a>
                     <?php endforeach; ?>
-                <?php endif; ?>
+                </div>
             </div>
-        </div>
 
-        <div class="sidebar-card">
-            <div class="sidebar-card-header">
-                <i class="bi bi-shield-check text-neon-cyan me-2"></i>Reglas de la Red
+            <!-- Sidebar -->
+            <div class="col-12 col-lg-4">
+                <div class="sidebar-card mb-3">
+                    <div class="sidebar-card-header">
+                        <i class="bi bi-fire me-2 text-neon-pink"></i>Hilos Destacados
+                    </div>
+                    <div class="sidebar-card-body">
+                        <?php if (empty($hilosDestacados)): ?>
+                            <p class="text-muted-gb" style="font-size:0.8rem;">Aún no hay likes.</p>
+                        <?php else: ?>
+                            <?php foreach ($hilosDestacados as $i => $hilo): ?>
+                                <?php if ($i > 0): ?>
+                                    <hr style="border-color:var(--gb-border);margin:.75rem 0;"><?php endif; ?>
+                                <div class="sidebar-thread">
+                                    <div class="d-flex align-items-start gap-2">
+                                        <div class="sidebar-thread-icon flex-shrink-0">
+                                            <i class="bi <?= htmlspecialchars($hilo['seccion_icono']) ?> text-neon-cyan"></i>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <a href="<?= $basePath ?>thread.php?id=<?= $hilo['id'] ?>"
+                                                class="sidebar-thread-title text-decoration-none d-block">
+                                                <?= htmlspecialchars($hilo['titulo']) ?>
+                                            </a>
+                                            <div class="sidebar-thread-meta">
+                                                <span class="text-muted-gb"><?= htmlspecialchars($hilo['autor']) ?></span>
+                                                <span class="text-neon-cyan ms-2">
+                                                    <i class="bi bi-chat-dots me-1"></i><?= $hilo['respuestas'] ?>
+                                                </span>
+                                                <span class="text-neon-pink ms-2">
+                                                    <i class="bi bi-heart-fill me-1"></i><?= $hilo['likes'] ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header">
+                        <i class="bi bi-shield-check text-neon-cyan me-2"></i>Reglas de la Red
+                    </div>
+                    <div class="sidebar-card-body">
+                        <ul class="forum-rules-list">
+                            <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Respeta a los demás usuarios</li>
+                            <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Publica en la sección correcta</li>
+                            <li><i class="bi bi-check2 text-neon-cyan me-2"></i>No spam ni publicidad no autorizada</li>
+                            <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Usa títulos descriptivos en tus hilos</li>
+                            <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Spoilers entre etiquetas cuando aplique</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="sidebar-card-body">
-                <ul class="forum-rules-list">
-                    <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Respeta a los demás usuarios</li>
-                    <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Publica en la sección correcta</li>
-                    <li><i class="bi bi-check2 text-neon-cyan me-2"></i>No spam ni publicidad no autorizada</li>
-                    <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Usa títulos descriptivos en tus hilos</li>
-                    <li><i class="bi bi-check2 text-neon-cyan me-2"></i>Spoilers entre etiquetas cuando aplique</li>
-                </ul>
-            </div>
+
         </div>
     </div>
-
-</div>
-</div>
 </main>
 
 <?php include 'includes/footer.php'; ?>

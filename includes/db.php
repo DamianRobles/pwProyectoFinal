@@ -1,4 +1,5 @@
 <?php
+
 /**
  * includes/db.php — Conexión SQLite + funciones auxiliares globales
  *
@@ -106,7 +107,7 @@ if (!function_exists('tiempoRelativo')) {
 if (!function_exists('fechaLegible')) {
     function fechaLegible(string $fecha): string
     {
-        $m  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        $m  = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         $ts = strtotime($fecha);
         return date('d', $ts) . ' ' . $m[(int)date('n', $ts) - 1] . ' ' . date('Y, H:i', $ts);
     }
@@ -115,7 +116,7 @@ if (!function_exists('fechaLegible')) {
 if (!function_exists('fechaCorta')) {
     function fechaCorta(string $fecha): string
     {
-        $m  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        $m  = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         $ts = strtotime($fecha);
         return date('d', $ts) . ' ' . $m[(int)date('n', $ts) - 1] . ' ' . date('Y', $ts);
     }
@@ -136,7 +137,7 @@ if (!function_exists('csrfField')) {
     function csrfField(): string
     {
         return '<input type="hidden" name="csrf_token" value="'
-             . htmlspecialchars(csrfToken(), ENT_QUOTES) . '">';
+            . htmlspecialchars(csrfToken(), ENT_QUOTES) . '">';
     }
 }
 
